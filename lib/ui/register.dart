@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:leCrypt_mobile/ui/home_page.dart';
 import 'package:leCrypt_mobile/widgets/customAppBar.dart';
 import 'package:leCrypt_mobile/widgets/customFlatButton.dart';
 import 'package:leCrypt_mobile/widgets/customTextField.dart';
@@ -53,8 +55,23 @@ class _RegisterState extends State<Register> {
               height: size.height * 0.02,
             ),
             CustomRaisedButton(
-              onTap: () {
-                if (checkPasswords()) {}
+              onTap: () async {
+                if (checkPasswords()) {
+                  final storage = new FlutterSecureStorage();
+                  await storage.write(
+                    key: "password",
+                    value: passwordController.text,
+                  );
+                  Navigator.pop(context);
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return HomePage();
+                      },
+                    ),
+                  );
+                }
               },
               title: "Submit",
               topPadding: 10,
