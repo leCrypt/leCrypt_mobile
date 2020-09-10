@@ -1,4 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:password/password.dart';
 
 class Storage {
   final FlutterSecureStorage flutterSecureStorage = FlutterSecureStorage();
@@ -12,6 +13,7 @@ class Storage {
   }
 
   Future<void> writeValue(String key, String value) async {
-    await flutterSecureStorage.write(key: key, value: value);
+    String hashValue = Password.hash(value, PBKDF2());
+    await flutterSecureStorage.write(key: key, value: hashValue);
   }
 }

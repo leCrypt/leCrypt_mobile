@@ -53,7 +53,7 @@ class _RegisterState extends State<Register> {
               controller: confirmPasswordController,
             ),
             SizedBox(
-              height: size.height * 0.02,
+              height: size.height * 0.025,
             ),
             CustomRaisedButton(
               title: "Submit",
