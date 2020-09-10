@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:leCrypt_mobile/widgets/customAppBar.dart';
 import 'package:leCrypt_mobile/widgets/customFlatButton.dart';
 import 'package:leCrypt_mobile/widgets/customTextField.dart';
@@ -10,10 +9,12 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    FlutterStatusbarcolor.setStatusBarColor(Colors.white);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
@@ -37,12 +38,14 @@ class _RegisterState extends State<Register> {
             ),
             CustomTextField(
               hintText: "Password",
+              controller: passwordController,
             ),
             SizedBox(
               height: size.height * 0.02,
             ),
             CustomTextField(
               hintText: "Confirm Password",
+              controller: confirmPasswordController,
             ),
             SizedBox(
               height: size.height * 0.02,

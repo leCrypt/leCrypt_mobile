@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:leCrypt_mobile/values/colors.dart';
 
 class CustomTextField extends StatelessWidget {
-  final TextEditingController textEditingController;
+  final TextEditingController controller;
   final String hintText;
 
-  CustomTextField({this.textEditingController, this.hintText});
+  CustomTextField({this.controller, this.hintText});
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +22,12 @@ class CustomTextField extends StatelessWidget {
         ],
       ),
       child: TextFormField(
-        controller: textEditingController,
+        controller: controller,
         obscureText: true,
         style: TextStyle(
           fontSize: 22,
         ),
+        cursorColor: purplePrimary,
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: TextStyle(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:leCrypt_mobile/ui/home_page.dart';
 import 'package:leCrypt_mobile/values/colors.dart';
 
@@ -9,6 +10,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    FlutterStatusbarcolor.setStatusBarColor(Colors.white);
     return MaterialApp(
       title: 'leCrypt',
       debugShowCheckedModeBanner: false,
