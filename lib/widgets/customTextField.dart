@@ -7,13 +7,16 @@ class CustomTextField extends StatelessWidget {
 
   CustomTextField({this.controller, this.hintText});
 
+  final OutlineInputBorder outlineInputBorder = OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.black, width: 5),
+    borderRadius: BorderRadius.circular(0),
+  );
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.80,
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.black, width: 6),
         boxShadow: [
           BoxShadow(
             color: purpleAccent,
@@ -24,16 +27,22 @@ class CustomTextField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         obscureText: true,
+        cursorColor: purplePrimary,
         style: TextStyle(
           fontSize: 22,
         ),
-        cursorColor: purplePrimary,
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: TextStyle(
-            fontSize: 22,
-          ),
-          contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+          filled: true,
+          fillColor: Colors.white,
+          contentPadding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+          hintStyle: TextStyle(fontSize: 22),
+          focusedBorder: outlineInputBorder,
+          enabledBorder: outlineInputBorder,
+          errorBorder: outlineInputBorder,
+          focusedErrorBorder: outlineInputBorder,
+          border: outlineInputBorder,
+          disabledBorder: outlineInputBorder,
         ),
       ),
     );

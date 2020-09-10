@@ -9,6 +9,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
 
@@ -16,6 +17,7 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.white,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(100),
@@ -51,7 +53,9 @@ class _RegisterState extends State<Register> {
               height: size.height * 0.02,
             ),
             CustomRaisedButton(
-              onTap: () {},
+              onTap: () {
+                if (checkPasswords()) {}
+              },
               title: "Submit",
               topPadding: 10,
               fontSize: 20,
@@ -61,5 +65,24 @@ class _RegisterState extends State<Register> {
         ),
       ),
     );
+  }
+
+  void snackBar(String text) {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: Text(text),
+      ),
+    );
+  }
+
+  bool checkPasswords() {
+    if (passwordController.text.length < 8) {
+      snackBar("Password should be of 8 atleast");
+      return false;
+    } else if (passwordController.text != confirmPasswordController.text) {
+      snackBar("Password don\'t match");
+      return false;
+    }
+    return true;
   }
 }
