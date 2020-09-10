@@ -38,18 +38,9 @@ class _CustomRaisedButtonState extends State<CustomRaisedButton> {
       ),
       child: RaisedButton(
         onPressed: widget.onTap,
-        onHighlightChanged: (highlight) {
-          if (highlight) {
-            setState(() {
-              textColor = Colors.black;
-            });
-          } else {
-            setState(() {
-              textColor = Colors.white;
-            });
-          }
-        },
         elevation: 0,
+        color: Colors.black,
+        highlightColor: Colors.white,
         child: Text(
           widget.title,
           style: TextStyle(
@@ -69,8 +60,17 @@ class _CustomRaisedButtonState extends State<CustomRaisedButton> {
             width: 6,
           ),
         ),
-        color: Colors.black,
-        highlightColor: Colors.white,
+        onHighlightChanged: (highlight) {
+          if (highlight) {
+            setState(() {
+              textColor = Colors.black;
+            });
+          } else {
+            setState(() {
+              textColor = Colors.white;
+            });
+          }
+        },
       ),
     );
   }

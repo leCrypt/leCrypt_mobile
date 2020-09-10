@@ -3,14 +3,15 @@ import 'package:leCrypt_mobile/widgets/customAppBar.dart';
 import 'package:leCrypt_mobile/widgets/customFlatButton.dart';
 import 'package:leCrypt_mobile/widgets/customTextField.dart';
 
-class Register extends StatefulWidget {
+class Login extends StatefulWidget {
   @override
-  _RegisterState createState() => _RegisterState();
+  _LoginState createState() => _LoginState();
 }
 
-class _RegisterState extends State<Register> {
+class _LoginState extends State<Login> {
+  TextEditingController serverController = TextEditingController();
+  TextEditingController tokenController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +19,9 @@ class _RegisterState extends State<Register> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100),
+        preferredSize: Size.fromHeight(80),
         child: CustomAppBar(
-          title: "Register",
+          title: "Login",
         ),
       ),
       body: Container(
@@ -37,15 +38,22 @@ class _RegisterState extends State<Register> {
               width: size.width * 0.50,
             ),
             CustomTextField(
-              hintText: "Password",
-              controller: passwordController,
+              hintText: "XXX.XXX.XXX.XXX",
+              controller: serverController,
             ),
             SizedBox(
               height: size.height * 0.02,
             ),
             CustomTextField(
-              hintText: "Confirm Password",
-              controller: confirmPasswordController,
+              hintText: "Token",
+              controller: tokenController,
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+            CustomTextField(
+              hintText: "Password",
+              controller: passwordController,
             ),
             SizedBox(
               height: size.height * 0.02,

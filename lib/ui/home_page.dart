@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leCrypt_mobile/ui/login.dart';
 import 'package:leCrypt_mobile/ui/register.dart';
 import 'package:leCrypt_mobile/widgets/customAppBar.dart';
 import 'package:leCrypt_mobile/widgets/customFlatButton.dart';
@@ -50,7 +51,16 @@ class _HomePageState extends State<HomePage> {
               ),
               CustomRaisedButton(
                 title: "Login",
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return Login();
+                      },
+                    ),
+                  );
+                },
                 width: size.width * 0.35,
               ),
             ],
