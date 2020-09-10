@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:leCrypt_mobile/storage/storage.dart';
 import 'package:leCrypt_mobile/ui/home_page.dart';
 import 'package:leCrypt_mobile/widgets/customAppBar.dart';
 import 'package:leCrypt_mobile/widgets/customFlatButton.dart';
@@ -22,7 +22,7 @@ class _RegisterState extends State<Register> {
       key: _scaffoldKey,
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100),
+        preferredSize: Size.fromHeight(size.height * 0.06),
         child: CustomAppBar(
           title: "Register",
         ),
@@ -37,8 +37,9 @@ class _RegisterState extends State<Register> {
           children: [
             Image.asset(
               'assets/inv.png',
-              height: size.width * 0.50,
-              width: size.width * 0.50,
+            ),
+            SizedBox(
+              height: size.height * 0.05,
             ),
             CustomTextField(
               hintText: "Password",
@@ -55,13 +56,13 @@ class _RegisterState extends State<Register> {
               height: size.height * 0.02,
             ),
             CustomRaisedButton(
+              title: "Submit",
+              topPadding: 10,
+              fontSize: 20,
+              width: size.width * 0.25,
               onTap: () async {
                 if (checkPasswords()) {
-                  final storage = new FlutterSecureStorage();
-                  await storage.write(
-                    key: "password",
-                    value: passwordController.text,
-                  );
+                  Storage().writeValue("password", passwordController.text);
                   Navigator.pop(context);
                   Navigator.pushReplacement(
                     context,
@@ -73,10 +74,6 @@ class _RegisterState extends State<Register> {
                   );
                 }
               },
-              title: "Submit",
-              topPadding: 10,
-              fontSize: 20,
-              width: size.width * 0.25,
             ),
           ],
         ),

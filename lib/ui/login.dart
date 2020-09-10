@@ -19,7 +19,7 @@ class _LoginState extends State<Login> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(80),
+        preferredSize: Size.fromHeight(size.height * 0.06),
         child: CustomAppBar(
           title: "Login",
         ),
@@ -34,8 +34,9 @@ class _LoginState extends State<Login> {
           children: [
             Image.asset(
               'assets/inv.png',
-              height: size.width * 0.50,
-              width: size.width * 0.50,
+            ),
+            SizedBox(
+              height: size.height * 0.05,
             ),
             CustomTextField(
               hintText: "XXX.XXX.XXX.XXX",

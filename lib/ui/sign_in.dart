@@ -29,6 +29,9 @@ class _SignInState extends State<SignIn> {
           Image.asset(
             'assets/inv.png',
           ),
+          SizedBox(
+              height: size.height * 0.04,
+            ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
