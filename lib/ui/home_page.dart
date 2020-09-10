@@ -12,7 +12,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    print("${AppBar().preferredSize.height / size.height} * 100");
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
