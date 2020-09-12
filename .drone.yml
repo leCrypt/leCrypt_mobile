@@ -3,7 +3,7 @@ name: default
 
 steps:
 - name: test
-  image: cirrusci/flutter:latest
+  image: cirrusci/flutter:1.22.0-9.0.pre
   commands:
   - sudo chown -R cirrus:cirrus .
   - flutter pub get
