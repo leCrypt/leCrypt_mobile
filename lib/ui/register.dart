@@ -62,7 +62,7 @@ class _RegisterState extends State<Register> {
               width: size.width * 0.25,
               onTap: () async {
                 if (checkPasswords()) {
-                  await Storage().writeValue('password', passwordController.text);
+                  await Storage().writeHash('password', passwordController.text);
                   Navigator.pop(context);
                   await Navigator.pushReplacement(
                     context,
