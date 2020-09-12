@@ -1,3 +1,5 @@
+[![Build Status](https://ci.aayushman.me/api/badges/leCrypt/leCrypt_mobile/status.svg)](https://ci.aayushman.me/leCrypt/leCrypt_mobile)
+
 # leCrypt_mobile
 
 A new Flutter project.
