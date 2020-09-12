@@ -24,15 +24,17 @@ class CustomRaisedButton extends StatefulWidget {
 
 class _CustomRaisedButtonState extends State<CustomRaisedButton> {
   Color textColor = Colors.white;
+  double offset;
   @override
   Widget build(BuildContext context) {
+    offset = widget.offset;
     return Container(
       width: widget.width,
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
             color: purpleAccent,
-            offset: Offset(widget.offset, widget.offset),
+            offset: Offset(offset, offset),
           ),
         ],
       ),
@@ -64,10 +66,12 @@ class _CustomRaisedButtonState extends State<CustomRaisedButton> {
           if (highlight) {
             setState(() {
               textColor = Colors.black;
+              offset = 0;
             });
           } else {
             setState(() {
               textColor = Colors.white;
+              offset = widget.offset;
             });
           }
         },

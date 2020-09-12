@@ -1,0 +1,9 @@
+kind: pipeline
+name: default
+
+steps:
+- name: test
+  image: google/flutter:master
+  commands:
+  - flutter pub get
+  - flutter test test/
