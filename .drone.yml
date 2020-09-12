@@ -7,4 +7,4 @@ steps:
   commands:
   - sudo chown -R cirrus:cirrus .
   - flutter pub get
-  - flutter test test/
+  - flutter analyze

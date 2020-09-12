@@ -21,7 +21,7 @@ class _LoginState extends State<Login> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(size.height * 0.06),
         child: CustomAppBar(
-          title: "Login",
+          title: 'Login',
         ),
       ),
       body: Container(
@@ -39,21 +39,21 @@ class _LoginState extends State<Login> {
               height: size.height * 0.05,
             ),
             CustomTextField(
-              hintText: "XXX.XXX.XXX.XXX",
+              hintText: 'XXX.XXX.XXX.XXX',
               controller: serverController,
             ),
             SizedBox(
               height: size.height * 0.02,
             ),
             CustomTextField(
-              hintText: "Token",
+              hintText: 'Token',
               controller: tokenController,
             ),
             SizedBox(
               height: size.height * 0.02,
             ),
             CustomTextField(
-              hintText: "Password",
+              hintText: 'Password',
               controller: passwordController,
             ),
             SizedBox(
@@ -61,7 +61,7 @@ class _LoginState extends State<Login> {
             ),
             CustomRaisedButton(
               onTap: () {},
-              title: "Submit",
+              title: 'Submit',
               topPadding: 10,
               fontSize: 20,
               width: size.width * 0.25,

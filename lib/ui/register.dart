@@ -11,7 +11,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
 
@@ -24,7 +24,7 @@ class _RegisterState extends State<Register> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(size.height * 0.06),
         child: CustomAppBar(
-          title: "Register",
+          title: 'Register',
         ),
       ),
       body: Container(
@@ -42,29 +42,29 @@ class _RegisterState extends State<Register> {
               height: size.height * 0.05,
             ),
             CustomTextField(
-              hintText: "Password",
+              hintText: 'Password',
               controller: passwordController,
             ),
             SizedBox(
               height: size.height * 0.02,
             ),
             CustomTextField(
-              hintText: "Confirm Password",
+              hintText: 'Confirm Password',
               controller: confirmPasswordController,
             ),
             SizedBox(
               height: size.height * 0.025,
             ),
             CustomRaisedButton(
-              title: "Submit",
+              title: 'Submit',
               topPadding: 10,
               fontSize: 20,
               width: size.width * 0.25,
               onTap: () async {
                 if (checkPasswords()) {
-                  Storage().writeValue("password", passwordController.text);
+                  await Storage().writeValue('password', passwordController.text);
                   Navigator.pop(context);
-                  Navigator.pushReplacement(
+                  await Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) {
@@ -91,7 +91,7 @@ class _RegisterState extends State<Register> {
 
   bool checkPasswords() {
     if (passwordController.text.length < 8) {
-      snackBar("Password should be of 8 atleast");
+      snackBar('Password should be of 8 atleast');
       return false;
     } else if (passwordController.text != confirmPasswordController.text) {
       snackBar("Password don\'t match");

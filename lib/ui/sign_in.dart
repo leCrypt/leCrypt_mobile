@@ -18,7 +18,7 @@ class _SignInState extends State<SignIn> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(100),
         child: CustomAppBar(
-          title: "leCrypt",
+          title: 'leCrypt',
         ),
       ),
       body: Column(
@@ -36,7 +36,7 @@ class _SignInState extends State<SignIn> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomRaisedButton(
-                title: "Register",
+                title: 'Register',
                 width: size.width * 0.35,
                 onTap: () {
                   Navigator.push(
@@ -53,7 +53,7 @@ class _SignInState extends State<SignIn> {
                 width: size.width * 0.05,
               ),
               CustomRaisedButton(
-                title: "Login",
+                title: 'Login',
                 width: size.width * 0.35,
                 onTap: () {
                   Navigator.push(

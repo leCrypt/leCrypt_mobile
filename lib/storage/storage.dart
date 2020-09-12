@@ -13,7 +13,7 @@ class Storage {
   }
 
   Future<void> writeValue(String key, String value) async {
-    String hashValue = Password.hash(value, PBKDF2());
+    var hashValue = Password.hash(value, PBKDF2());
     await flutterSecureStorage.write(key: key, value: hashValue);
   }
 }

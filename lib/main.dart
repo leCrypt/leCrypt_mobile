@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: FutureBuilder(
-        future: Storage().getValue("password"),
+        future: Storage().getValue('password'),
         builder: (context, snapshot) {
           if (snapshot.data != null) {
             return HomePage();

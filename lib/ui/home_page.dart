@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(size.height * 0.06),
         child: CustomAppBar(
-          title: "leCrypt",
+          title: 'leCrypt',
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -35,11 +35,11 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(
               Icons.note,
             ),
-            label: "Notes",
+            label: 'Notes',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.lock),
-            label: "Passwords",
+            label: 'Passwords',
           ),
         ],
       ),
