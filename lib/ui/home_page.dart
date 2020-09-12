@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:leCrypt_mobile/ui/notes_page.dart';
+import 'package:leCrypt_mobile/ui/password_page.dart';
 import 'package:leCrypt_mobile/values/colors.dart';
 import 'package:leCrypt_mobile/widgets/customAppBar.dart';
 
@@ -8,7 +10,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int ind = 0;
+  var page = [NotesPage(), PasswordPage()];
+  int pageIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -24,10 +28,10 @@ class _HomePageState extends State<HomePage> {
         type: BottomNavigationBarType.shifting,
         onTap: (index) {
           setState(() {
-            ind = index;
+            pageIndex = index;
           });
         },
-        currentIndex: ind,
+        currentIndex: pageIndex,
         unselectedItemColor: Colors.black87,
         selectedItemColor: purplePrimary,
         items: [
@@ -43,12 +47,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: [],
-      ),
+      body: page[pageIndex],
     );
   }
 }

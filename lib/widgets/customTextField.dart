@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:leCrypt_mobile/values/colors.dart';
+import 'package:leCrypt_mobile/values/values.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
 
   CustomTextField({this.controller, this.hintText});
-
-  final OutlineInputBorder outlineInputBorder = OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.black, width: 5),
-    borderRadius: BorderRadius.circular(0),
-  );
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:leCrypt_mobile/ui/login.dart';
-import 'package:leCrypt_mobile/ui/register.dart';
+import 'package:leCrypt_mobile/ui/login/login.dart';
+import 'package:leCrypt_mobile/ui/login/register.dart';
 import 'package:leCrypt_mobile/widgets/customAppBar.dart';
 import 'package:leCrypt_mobile/widgets/customFlatButton.dart';
 
