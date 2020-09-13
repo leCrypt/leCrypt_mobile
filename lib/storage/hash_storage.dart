@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:crypto/crypto.dart';
 import 'package:leCrypt_mobile/models/hash.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:pbkdf2_dart/pbkdf2_dart.dart';
+
+import 'string_to_hash.dart';
 
 class HashStorage {
   Future<String> getHash(String key) async {
@@ -34,15 +34,5 @@ class HashStorage {
     } else {
       await file.writeAsString('{"hash": "$hashValue"}');
     }
-  }
-
-  String convertStringToHash(String value) {
-    var hash = '';
-    var gen = PBKDF2(hash: sha1);
-    var key = gen.generateKey(value, 'salt', 1000, 16);
-    for (var a in key) {
-      hash += a.toRadixString(16);
-    }
-    return hash;
   }
 }
