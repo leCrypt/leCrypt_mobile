@@ -47,8 +47,8 @@ class NoteStorage {
     var notes = await getNotes();
     notes.add(
       Note(
-        note: convertStringToHash(note),
-        title: convertStringToHash(title),
+        note: (note),
+        title: (title),
       ),
     );
     await writeNote(notes);

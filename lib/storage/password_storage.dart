@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:leCrypt_mobile/models/password.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'string_to_hash.dart';
-
 class PasswordStorage {
   Future<File> getPasswordsFile() async {
     var directory = await getApplicationDocumentsDirectory();
@@ -47,9 +45,9 @@ class PasswordStorage {
     var notes = await getPasswords();
     notes.add(
       Pass(
-        website: convertStringToHash(website),
-        username: convertStringToHash(username),
-        password: convertStringToHash(password),
+        website: (website),
+        username: (username),
+        password: (password),
       ),
     );
     await writePassword(notes);
