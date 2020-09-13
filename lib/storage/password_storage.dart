@@ -6,9 +6,23 @@ import 'package:path_provider/path_provider.dart';
 import 'string_to_hash.dart';
 
 class PasswordStorage {
-  Future<List<Pass>> getPasswords() async {
+  Future<File> getPasswordsFile() async {
     var directory = await getApplicationDocumentsDirectory();
-    var file = File('${directory.path}/passes.json');
+    var file = File('${directory.path}/notes.json');
+    if (!(await file.exists())) {
+      await file.create().then((value) {
+        value.writeAsString(
+          passwordsToJson(
+            Passwords(passes: []),
+          ),
+        );
+      });
+    }
+    return file;
+  }
+
+  Future<List<Pass>> getPasswords() async {
+    var file = await getPasswordsFile();
     var fileContent = await file.readAsString();
     var _passes = passwordsFromJson(fileContent);
     return _passes.passes;
@@ -21,20 +35,12 @@ class PasswordStorage {
   }
 
   Future<void> writePassword(List<Pass> passes) async {
-    var directory = await getApplicationDocumentsDirectory();
-    var file = File('${directory.path}/passes.json');
-    var exist = await file.exists();
-    if (!exist) {
-      await file.create().then((value) {
-        value.writeAsString(
-          passwordsToJson(Passwords(passes: passes)),
-        );
-      });
-    } else {
-      await file.writeAsString(
-        passwordsToJson(Passwords(passes: passes)),
-      );
-    }
+    var file = await getPasswordsFile();
+    await file.writeAsString(
+      passwordsToJson(
+        Passwords(passes: passes),
+      ),
+    );
   }
 
   Future<void> addNote(String website, String username, String password) async {

@@ -35,6 +35,7 @@ dependencies:
   pedantic: ^1.9.2
   pbkdf2_dart: ^2.1.0
   crypto: ^2.1.5
+  encrypt: ^4.0.2
 
 dev_dependencies:
   flutter_test:

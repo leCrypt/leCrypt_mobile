@@ -10,7 +10,13 @@ class NoteStorage {
     var directory = await getApplicationDocumentsDirectory();
     var file = File('${directory.path}/notes.json');
     if (!(await file.exists())) {
-      await file.create();
+      await file.create().then((value) {
+        value.writeAsString(
+          notesToJson(
+            Notes(notes: []),
+          ),
+        );
+      });
     }
     return file;
   }
@@ -18,12 +24,7 @@ class NoteStorage {
   Future<List<Note>> getNotes() async {
     var file = await getNotesFile();
     var fileContent = await file.readAsString();
-    var _notes;
-    if (fileContent == '') {
-      _notes = Notes(notes: []);
-    } else {
-      _notes = notesFromJson(fileContent);
-    }
+    var _notes = notesFromJson(fileContent);
     return _notes.notes;
   }
 
@@ -36,7 +37,9 @@ class NoteStorage {
   Future<void> writeNote(List<Note> notes) async {
     var file = await getNotesFile();
     await file.writeAsString(
-      notesToJson(Notes(notes: notes)),
+      notesToJson(
+        Notes(notes: notes),
+      ),
     );
   }
 
