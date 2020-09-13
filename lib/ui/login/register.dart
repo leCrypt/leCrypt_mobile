@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:leCrypt_mobile/storage/storage.dart';
+import 'package:leCrypt_mobile/storage/hash_storage.dart';
 import 'package:leCrypt_mobile/ui/home_page.dart';
 import 'package:leCrypt_mobile/widgets/customAppBar.dart';
 import 'package:leCrypt_mobile/widgets/customFlatButton.dart';
@@ -62,7 +62,7 @@ class _RegisterState extends State<Register> {
               width: size.width * 0.25,
               onTap: () async {
                 if (checkPasswords()) {
-                  await Storage().writeHash('password', passwordController.text);
+                  await HashStorage().writeHash('password', passwordController.text);
                   Navigator.pop(context);
                   await Navigator.pushReplacement(
                     context,

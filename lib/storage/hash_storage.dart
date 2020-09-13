@@ -5,12 +5,12 @@ import 'package:leCrypt_mobile/models/hash.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pbkdf2_dart/pbkdf2_dart.dart';
 
-class Storage {
+class HashStorage {
   Future<String> getHash(String key) async {
     var directory = await getApplicationDocumentsDirectory();
     var file = File('${directory.path}/hash.json');
     var contents = await file.readAsString();
-    var _hash = hashFromJson(contents);
+    var _hash = hashpasswordFromJson(contents);
     return _hash.hash;
   }
 
@@ -27,7 +27,9 @@ class Storage {
     var exist = await file.exists();
     if (!exist) {
       await file.create().then((value) {
-        value.writeAsString('{"hash": "$hashValue"}');
+        value.writeAsString(hashpasswordToJson(
+          Hashpassword(hash: hashValue),
+        ));
       });
     } else {
       await file.writeAsString('{"hash": "$hashValue"}');

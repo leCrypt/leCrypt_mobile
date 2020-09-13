@@ -1,17 +1,18 @@
 import 'dart:convert';
 
-Hash hashFromJson(String str) => Hash.fromJson(json.decode(str));
+Hashpassword hashpasswordFromJson(String str) =>
+    Hashpassword.fromJson(json.decode(str));
 
-String hashToJson(Hash data) => json.encode(data.toJson());
+String hashpasswordToJson(Hashpassword data) => json.encode(data.toJson());
 
-class Hash {
-  Hash({
+class Hashpassword {
+  Hashpassword({
     this.hash,
   });
 
   String hash;
 
-  factory Hash.fromJson(Map<String, dynamic> json) => Hash(
+  factory Hashpassword.fromJson(Map<String, dynamic> json) => Hashpassword(
         hash: json['hash'],
       );
 

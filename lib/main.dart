@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
-import 'package:leCrypt_mobile/storage/storage.dart';
+import 'package:leCrypt_mobile/storage/hash_storage.dart';
 import 'package:leCrypt_mobile/ui/home_page.dart';
 import 'package:leCrypt_mobile/ui/login/sign_in.dart';
 import 'package:leCrypt_mobile/values/colors.dart';
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: FutureBuilder(
-        future: Storage().getHash('password'),
+        future: HashStorage().getHash('password'),
         builder: (context, snapshot) {
           if (snapshot.data != null) {
             return HomePage();
