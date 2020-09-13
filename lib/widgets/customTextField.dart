@@ -1,11 +1,22 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:leCrypt_mobile/values/values.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
+  final bool obscure;
+  final int maxLines;
+  final TextInputType textInputType;
 
-  CustomTextField({this.controller, this.hintText});
+  CustomTextField({
+    this.controller,
+    this.obscure = false,
+    this.hintText,
+    this.maxLines = 1,
+    this.textInputType = TextInputType.emailAddress,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +32,9 @@ class CustomTextField extends StatelessWidget {
       ),
       child: TextFormField(
         controller: controller,
-        obscureText: true,
+        obscureText: obscure,
+        maxLines: maxLines,
+        keyboardType: textInputType,
         cursorColor: purplePrimary,
         style: TextStyle(
           fontSize: 22,

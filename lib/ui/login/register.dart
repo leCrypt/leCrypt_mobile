@@ -43,6 +43,7 @@ class _RegisterState extends State<Register> {
             ),
             CustomTextField(
               hintText: 'Password',
+              obscure: true,
               controller: passwordController,
             ),
             SizedBox(
@@ -50,6 +51,7 @@ class _RegisterState extends State<Register> {
             ),
             CustomTextField(
               hintText: 'Confirm Password',
+              obscure: true,
               controller: confirmPasswordController,
             ),
             SizedBox(

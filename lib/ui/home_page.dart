@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:leCrypt_mobile/ui/notes_page.dart';
 import 'package:leCrypt_mobile/ui/password_page.dart';
 import 'package:leCrypt_mobile/values/colors.dart';
+import 'package:leCrypt_mobile/widgets/addNoteWidget.dart';
 import 'package:leCrypt_mobile/widgets/customAppBar.dart';
 
 class HomePage extends StatefulWidget {
@@ -46,6 +47,15 @@ class _HomePageState extends State<HomePage> {
             label: 'Passwords',
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black,
+        onPressed: () {
+          showAddNoteDialog(context);
+        },
+        child: Icon(
+          Icons.add,
+        ),
       ),
       body: page[pageIndex],
     );
