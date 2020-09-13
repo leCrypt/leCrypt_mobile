@@ -8,7 +8,7 @@ import 'package:pbkdf2_dart/pbkdf2_dart.dart';
 class PasswordStorage {
   Future<List<Pass>> getPasswords() async {
     var directory = await getApplicationDocumentsDirectory();
-    var file = File('${directory.path}/password.json');
+    var file = File('${directory.path}/passes.json');
     var fileContent = await file.readAsString();
     var _passes = passwordsFromJson(fileContent);
     return _passes.passes;
@@ -22,7 +22,7 @@ class PasswordStorage {
 
   Future<void> writePassword(List<Pass> passes) async {
     var directory = await getApplicationDocumentsDirectory();
-    var file = File('${directory.path}/password.json');
+    var file = File('${directory.path}/passes.json');
     var exist = await file.exists();
     if (!exist) {
       await file.create().then((value) {
