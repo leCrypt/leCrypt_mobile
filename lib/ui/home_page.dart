@@ -3,6 +3,7 @@ import 'package:leCrypt_mobile/ui/notes_page.dart';
 import 'package:leCrypt_mobile/ui/password_page.dart';
 import 'package:leCrypt_mobile/values/colors.dart';
 import 'package:leCrypt_mobile/widgets/addNoteWidget.dart';
+import 'package:leCrypt_mobile/widgets/addPasswordWidgete.dart';
 import 'package:leCrypt_mobile/widgets/customAppBar.dart';
 
 class HomePage extends StatefulWidget {
@@ -51,7 +52,11 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         onPressed: () {
-          showAddNoteDialog(context);
+          if (pageIndex == 0) {
+            showAddNoteDialog(context);
+          }else{
+            showAddPasswordDialog(context);
+          }
         },
         child: Icon(
           Icons.add,

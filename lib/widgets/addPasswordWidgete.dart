@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:leCrypt_mobile/storage/notes_storage.dart';
+import 'package:leCrypt_mobile/storage/password_storage.dart';
 import 'package:leCrypt_mobile/widgets/customTextField.dart';
 
 import 'customFlatButton.dart';
 
-void showAddNoteDialog(BuildContext context) {
-  var titleController = TextEditingController();
-  var noteController = TextEditingController();
+void showAddPasswordDialog(BuildContext context) {
+  var websiteContoller = TextEditingController();
+  var userNameController = TextEditingController();
+  var passwordController = TextEditingController();
 
   showDialog(
     context: context,
     barrierDismissible: false,
     builder: (context) {
       return AlertDialog(
-        title: Text('Add Note'),
+        title: Text('Add Password'),
         actions: [
           CustomRaisedButton(
             title: 'Cancel',
@@ -32,9 +33,10 @@ void showAddNoteDialog(BuildContext context) {
             fontSize: 16,
             offset: 4,
             onTap: () {
-              NoteStorage().addNote(
-                titleController.text,
-                noteController.text,
+              PasswordStorage().addPassword(
+                websiteContoller.text,
+                userNameController.text,
+                passwordController.text,
               ).then((value) {
                 Navigator.pop(context);
               });
@@ -46,16 +48,23 @@ void showAddNoteDialog(BuildContext context) {
             mainAxisSize: MainAxisSize.min,
             children: [
               CustomTextField(
-                hintText: 'Title',
-                controller: titleController,
+                hintText: 'Website',
+                controller: websiteContoller,
               ),
               SizedBox(
                 height: 10,
               ),
               CustomTextField(
-                hintText: 'Note',
-                maxLines: 3,
-                controller: noteController,
+                hintText: 'User Name',
+                controller: userNameController,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              CustomTextField(
+                hintText: 'Password',
+                obscure: true,
+                controller: passwordController,
               ),
             ],
           ),

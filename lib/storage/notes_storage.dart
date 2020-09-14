@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:leCrypt_mobile/models/notes.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'string_to_hash.dart';
-
 class NoteStorage {
   Future<File> getNotesFile() async {
     var directory = await getApplicationDocumentsDirectory();

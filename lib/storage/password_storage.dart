@@ -6,7 +6,7 @@ import 'package:path_provider/path_provider.dart';
 class PasswordStorage {
   Future<File> getPasswordsFile() async {
     var directory = await getApplicationDocumentsDirectory();
-    var file = File('${directory.path}/notes.json');
+    var file = File('${directory.path}/passes.json');
     if (!(await file.exists())) {
       await file.create().then((value) {
         value.writeAsString(
@@ -41,7 +41,7 @@ class PasswordStorage {
     );
   }
 
-  Future<void> addNote(String website, String username, String password) async {
+  Future<void> addPassword(String website, String username, String password) async {
     var notes = await getPasswords();
     notes.add(
       Pass(
@@ -50,6 +50,7 @@ class PasswordStorage {
         password: (password),
       ),
     );
+    print(notes);
     await writePassword(notes);
   }
 }
