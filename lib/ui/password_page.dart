@@ -10,40 +10,39 @@ class PasswordPage extends StatefulWidget {
 class _PasswordPageState extends State<PasswordPage> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 20,
-        ),
-        CustomSearchBar(
-          hint: 'Search',
-          onTap: () {},
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        StreamBuilder(
-          stream: PasswordStorage().getPasswords().asStream(),
-          builder: (context, snapshot) {
-            if (snapshot.data != null && snapshot.data.length > 0) {
-              return ListView.builder(
-                shrinkWrap: true,
-                itemCount: snapshot.data.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(snapshot.data[index].website),
-                    subtitle: Text(snapshot.data[index].username),
-                  );
-                },
-              );
-            } else {
-              return Center(
-                child: Text('No note found!'),
-              );
-            }
-          },
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          CustomSearchBar(
+            hint: 'Search',
+            onTap: () {},
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          StreamBuilder(
+            stream: PasswordStorage().getPasswords().asStream(),
+            builder: (context, snapshot) {
+              if (snapshot.data != null && snapshot.data.length > 0) {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(snapshot.data[index].website),
+                      subtitle: Text(snapshot.data[index].username),
+                    );
+                  },
+                );
+              } else {
+                return Center(
+                  child: Text('No note found!'),
+                );
+              }
+            },
+          ),
+        ],
+      ),
     );
   }
 }

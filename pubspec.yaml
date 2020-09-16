@@ -36,6 +36,7 @@ dependencies:
   pbkdf2_dart: ^2.1.0
   crypto: ^2.1.5
   encrypt: ^4.0.2
+  flutter_slidable: ^0.5.7
 
 dev_dependencies:
   flutter_test:
