@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:leCrypt_mobile/storage/string_to_hash.dart';
 import 'package:leCrypt_mobile/ui/notes_page.dart';
 import 'package:leCrypt_mobile/ui/password_page.dart';
 import 'package:leCrypt_mobile/values/colors.dart';
@@ -19,7 +18,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    encrypt();
     var size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
