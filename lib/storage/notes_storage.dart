@@ -1,7 +1,10 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:leCrypt_mobile/models/notes.dart';
+import 'package:leCrypt_mobile/provider/app_provider.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 
 class NoteStorage {
   Future<File> getNotesFile() async {
@@ -19,14 +22,6 @@ class NoteStorage {
     return file;
   }
 
-  Stream<List<Note>> getNoteStream() async* {
-    var file = await getNotesFile();
-    print(file.path);
-    file.watch().listen((event) async* {
-      yield notesFromJson(await file.readAsString()).notes;
-    });
-  }
-
   Future<List<Note>> getNotes() async {
     var file = await getNotesFile();
     var fileContent = await file.readAsString();
@@ -34,28 +29,30 @@ class NoteStorage {
     return _notes.notes;
   }
 
-  Future<void> DeletNote(int index) async {
+  Future<void> DeletNote(int index, BuildContext context) async {
     var notes = await getNotes();
     notes.removeAt(index);
-    await writeNote(notes);
+    await writeNote(notes, context);
   }
 
-  Future<void> writeNote(List<Note> notes) async {
+  Future<void> writeNote(List<Note> notes, BuildContext context) async {
     var file = await getNotesFile();
     await file.writeAsString(
       notesToJson(
         Notes(notes: notes),
       ),
     );
+    Provider.of<AppProvider>(context, listen: false).setNoteList(notes);
   }
 
-  Future<void> saveNote(String title, String note, int index) async {
+  Future<void> saveNote(
+      String title, String note, int index, BuildContext context) async {
     var notes = await getNotes();
     notes[index] = Note(title: title, note: note);
-    await writeNote(notes);
+    await writeNote(notes, context);
   }
 
-  Future<void> addNote(String title, String note) async {
+  Future<void> addNote(String title, String note, BuildContext context) async {
     var notes = await getNotes();
     notes.add(
       Note(
@@ -63,6 +60,6 @@ class NoteStorage {
         title: (title),
       ),
     );
-    await writeNote(notes);
+    await writeNote(notes, context);
   }
 }

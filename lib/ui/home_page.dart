@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {
           if (pageIndex == 0) {
             showAddNoteDialog(context);
-          }else{
+          } else {
             showAddPasswordDialog(context);
           }
         },

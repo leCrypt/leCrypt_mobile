@@ -35,6 +35,7 @@ void showAddNoteDialog(BuildContext context) {
               NoteStorage().addNote(
                 titleController.text,
                 noteController.text,
+                context,
               ).then((value) {
                 Navigator.pop(context);
               });

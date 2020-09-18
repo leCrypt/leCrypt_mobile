@@ -42,9 +42,8 @@ class _NoteItemState extends State<NoteItem> {
           IconSlideAction(
             color: Colors.white,
             icon: Icons.delete,
-            onTap: () {
-              NoteStorage().DeletNote(widget.index);
-              setState(() {});
+            onTap: () async {
+              await NoteStorage().DeletNote(widget.index, context);
             },
           ),
         ],
@@ -86,13 +85,17 @@ class _NoteItemState extends State<NoteItem> {
                   ),
                   IconButton(
                     icon: Icon(_enabled ? Icons.check : Icons.edit),
-                    onPressed: () {
+                    onPressed: () async {
                       setState(() {
                         _enabled = !_enabled;
                       });
                       if (!_enabled) {
-                        NoteStorage().saveNote(titleController.text,
-                            noteController.text, widget.index);
+                        await NoteStorage().saveNote(
+                          titleController.text,
+                          noteController.text,
+                          widget.index,
+                          context,
+                        );
                       }
                     },
                   ),
