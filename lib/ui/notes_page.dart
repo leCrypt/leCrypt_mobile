@@ -11,49 +11,41 @@ class NotesPage extends StatefulWidget {
 
 class _NotesPageState extends State<NotesPage> {
   @override
+  void didChangeDependencies() {
+    setList(context);
+    super.didChangeDependencies();
+  }
+
+  void setList(BuildContext context) async {
+    final provider = Provider.of<AppProvider>(context);
+    provider.setNoteList(await NoteStorage().getNotes());
+  }
+
+  @override
   Widget build(BuildContext context) {
     final provider = Provider.of<AppProvider>(context);
-    return FutureBuilder(
-      future: NoteStorage().getNotes(),
-      builder: (context, snapshot) {
-        if (snapshot.data != null) {
-          provider.setNoteList(snapshot.data);
-          return ListView.builder(
-            shrinkWrap: true,
-            itemCount: provider.noteList.length,
-            itemBuilder: (context, index) {
-              return NoteItem(
-                index: index,
-                note: provider.noteList[index].note,
-                title: provider.noteList[index].title,
-              );
+    if (provider.noteList != null) {
+      return ListView.builder(
+        shrinkWrap: true,
+        itemCount: provider.noteList.length,
+        itemBuilder: (context, index) {
+          return Dismissible(
+            key: Key(provider.noteList[index].title),
+            onDismissed: (direction) async {
+              await NoteStorage().DeletNote(index, context);
             },
+            child: NoteItem(
+              index: index,
+              note: provider.noteList[index].note,
+              title: provider.noteList[index].title,
+            ),
           );
-        } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      },
-    );
+        },
+      );
+    } else {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
   }
 }
-
-// final provider = Provider.of<AppProvider>(context);
-//     if (provider.noteList != null) {
-//       return ListView.builder(
-//         shrinkWrap: true,
-//         itemCount: provider.noteList.length,
-//         itemBuilder: (context, index) {
-//           return NoteItem(
-//             title: provider.noteList[index].title,
-//             note: provider.noteList[index].note,
-//             index: index,
-//           );
-//         },
-//       );
-//     } else {
-//       return Center(
-//         child: CircularProgressIndicator(),
-//       );
-//     }

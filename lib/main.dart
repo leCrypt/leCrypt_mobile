@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     FlutterStatusbarcolor.setStatusBarColor(Colors.white);
     return ChangeNotifierProvider(
-      create: (_) => AppProvider(),
+      create: (context) => AppProvider(),
       child: MaterialApp(
         title: 'leCrypt',
         debugShowCheckedModeBanner: false,

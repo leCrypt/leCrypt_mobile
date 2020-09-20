@@ -10,4 +10,14 @@ class AppProvider with ChangeNotifier {
     _notesList = notes;
     notifyListeners();
   }
+
+  void deleteNote(int index) {
+    _notesList.removeAt(index);
+    notifyListeners();
+  }
+
+  void addNote(Note note) {
+    _notesList.add(note);
+    notifyListeners();
+  }
 }
