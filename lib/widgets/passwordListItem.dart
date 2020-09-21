@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:leCrypt_mobile/models/password.dart';
 import 'package:leCrypt_mobile/storage/password_storage.dart';
@@ -107,26 +108,44 @@ class _PasswordItemState extends State<PasswordItem> {
               SizedBox(
                 height: 10,
               ),
-              Stack(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TextField(
-                    controller: passwordController,
-                    enabled: _enabled,
-                    obscureText: _showPassword,
-                    decoration: inputDecorationTextField,
-                  ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: IconButton(
-                      icon: Icon(
-                        _showPassword ? Icons.toggle_on : Icons.toggle_off,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _showPassword = !_showPassword;
-                        });
-                      },
+                  Container(
+                    width: size.width * 0.75,
+                    child: Stack(
+                      children: [
+                        TextField(
+                          controller: passwordController,
+                          enabled: _enabled,
+                          obscureText: _showPassword,
+                          decoration: inputDecorationTextField,
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: IconButton(
+                            icon: Icon(
+                              _showPassword ? Icons.toggle_on : Icons.toggle_off,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _showPassword = !_showPassword;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
                     ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.copy),
+                    onPressed: () async {
+                      await Clipboard.setData(
+                        ClipboardData(
+                          text: widget.password,
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

@@ -37,12 +37,12 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        onTap: (index) {
-          provider.setPageIndex(1 - provider.pageIndex);
-        },
         currentIndex: provider.pageIndex,
         unselectedItemColor: Colors.black87,
         selectedItemColor: purplePrimary,
+        onTap: (index) {
+          provider.setPageIndex(1 - provider.pageIndex);
+        },
         items: [
           BottomNavigationBarItem(
             icon: Icon(
