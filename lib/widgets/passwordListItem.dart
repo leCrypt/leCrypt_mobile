@@ -25,7 +25,7 @@ class _PasswordItemState extends State<PasswordItem> {
   var userNameController;
   var passwordController;
   var _enabled = false;
-  var _showPassword = false;
+  var _showPassword = true;
 
   @override
   void initState() {
@@ -33,6 +33,23 @@ class _PasswordItemState extends State<PasswordItem> {
     userNameController = TextEditingController(text: widget.username);
     passwordController = TextEditingController(text: widget.password);
     super.initState();
+  }
+
+  void changeEnability() async {
+    setState(() {
+      _enabled = !_enabled;
+    });
+    if (!_enabled) {
+      await PasswordStorage().savePassword(
+        Pass(
+          website: websiteController.text,
+          username: userNameController.text,
+          password: passwordController.text,
+        ),
+        widget.index,
+        context,
+      );
+    }
   }
 
   @override
@@ -53,14 +70,7 @@ class _PasswordItemState extends State<PasswordItem> {
         ],
         child: Container(
           padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(
-              color: Colors.black,
-              width: 4,
-            ),
-            borderRadius: BorderRadius.circular(10),
-          ),
+          decoration: boxDecorationTextField,
           child: Column(
             children: [
               Row(
@@ -71,33 +81,17 @@ class _PasswordItemState extends State<PasswordItem> {
                     child: TextField(
                       controller: websiteController,
                       enabled: _enabled,
+                      decoration: inputDecorationTextField,
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
-                      ),
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        border: outlineInputBorder,
                       ),
                     ),
                   ),
                   IconButton(
                     icon: Icon(_enabled ? Icons.check : Icons.edit),
                     onPressed: () async {
-                      setState(() {
-                        _enabled = !_enabled;
-                      });
-                      if (!_enabled) {
-                        await PasswordStorage().savePassword(
-                          Pass(
-                            website: websiteController.text,
-                            username: userNameController.text,
-                            password: passwordController.text,
-                          ),
-                          widget.index,
-                          context,
-                        );
-                      }
+                      await changeEnability();
                     },
                   ),
                 ],
@@ -108,32 +102,33 @@ class _PasswordItemState extends State<PasswordItem> {
               TextField(
                 controller: userNameController,
                 enabled: _enabled,
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  border: outlineInputBorder,
-                ),
+                decoration: inputDecorationTextField,
               ),
               SizedBox(
                 height: 10,
               ),
-              TextField(
-                controller: passwordController,
-                enabled: _enabled,
-                obscureText: _showPassword,
-                decoration: InputDecoration(
-                  suffix: IconButton(
-                    icon: Icon(
-                      _showPassword ? Icons.toggle_on : Icons.toggle_off,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _showPassword = !_showPassword;
-                      });
-                    },
+              Stack(
+                children: [
+                  TextField(
+                    controller: passwordController,
+                    enabled: _enabled,
+                    obscureText: _showPassword,
+                    decoration: inputDecorationTextField,
                   ),
-                  contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  border: outlineInputBorder,
-                ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                      icon: Icon(
+                        _showPassword ? Icons.toggle_on : Icons.toggle_off,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _showPassword = !_showPassword;
+                        });
+                      },
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

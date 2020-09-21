@@ -34,6 +34,22 @@ class _NoteItemState extends State<NoteItem> {
     noteController = TextEditingController(text: widget.note);
   }
 
+  void changeEnability() async {
+    setState(() {
+      _enabled = !_enabled;
+    });
+    if (!_enabled) {
+      await NoteStorage().saveNote(
+        Note(
+          note: noteController.text,
+          title: titleController.text,
+        ),
+        widget.index,
+        context,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -52,21 +68,14 @@ class _NoteItemState extends State<NoteItem> {
         ],
         child: Container(
           padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(
-              color: Colors.black,
-              width: 4,
-            ),
-            borderRadius: BorderRadius.circular(10),
-          ),
+          decoration: boxDecorationTextField,
           child: Column(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    width: size.width * 0.77,
+                    width: size.width * 0.75,
                     child: TextField(
                       controller: titleController,
                       enabled: _enabled,
@@ -74,28 +83,13 @@ class _NoteItemState extends State<NoteItem> {
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
                       ),
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        border: outlineInputBorder,
-                      ),
+                      decoration: inputDecorationTextField,
                     ),
                   ),
                   IconButton(
                     icon: Icon(_enabled ? Icons.check : Icons.edit),
                     onPressed: () async {
-                      setState(() {
-                        _enabled = !_enabled;
-                      });
-                      if (!_enabled) {
-                        await NoteStorage().saveNote(
-                          Note(
-                            note: noteController.text,
-                            title: titleController.text,
-                          ),
-                          widget.index,
-                          context,
-                        );
-                      }
+                      await changeEnability();
                     },
                   ),
                 ],
@@ -109,10 +103,7 @@ class _NoteItemState extends State<NoteItem> {
                 minLines: 1,
                 maxLines: 7,
                 keyboardType: TextInputType.multiline,
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  border: outlineInputBorder,
-                ),
+                decoration: inputDecorationTextField,
               ),
             ],
           ),

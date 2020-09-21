@@ -12,3 +12,17 @@ final OutlineInputBorder outlineInputBorderTextField = OutlineInputBorder(
     width: 2,
   ),
 );
+
+final InputDecoration inputDecorationTextField = InputDecoration(
+  contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+  border: outlineInputBorder,
+);
+
+final BoxDecoration boxDecorationTextField = BoxDecoration(
+  color: Colors.white,
+  border: Border.all(
+    color: Colors.black,
+    width: 4,
+  ),
+  borderRadius: BorderRadius.circular(10),
+);
