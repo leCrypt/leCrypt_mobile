@@ -3,8 +3,16 @@ import 'package:leCrypt_mobile/models/notes.dart';
 import 'package:leCrypt_mobile/models/password.dart';
 
 class AppProvider with ChangeNotifier {
+  int _pageIndex = 0;
   List<Note> _notesList;
   List<Pass> _passwordList;
+
+  int get pageIndex => _pageIndex;
+
+  void setPageIndex(int index) {
+    _pageIndex = index;
+    notifyListeners();
+  }
 
   List<Note> get noteList => _notesList;
 

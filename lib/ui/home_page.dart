@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leCrypt_mobile/provider/app_provider.dart';
 import 'package:leCrypt_mobile/ui/notes_page.dart';
 import 'package:leCrypt_mobile/ui/password_page.dart';
 import 'package:leCrypt_mobile/values/colors.dart';
@@ -6,6 +7,7 @@ import 'package:leCrypt_mobile/widgets/addNoteWidget.dart';
 import 'package:leCrypt_mobile/widgets/addPasswordWidgete.dart';
 import 'package:leCrypt_mobile/widgets/customAppBar.dart';
 import 'package:leCrypt_mobile/widgets/customSearchBar.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,11 +16,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var page = [NotesPage(), PasswordPage()];
-  int pageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    final provider = Provider.of<AppProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
@@ -36,11 +38,9 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         onTap: (index) {
-          setState(() {
-            pageIndex = index;
-          });
+          provider.setPageIndex(1 - provider.pageIndex);
         },
-        currentIndex: pageIndex,
+        currentIndex: provider.pageIndex,
         unselectedItemColor: Colors.black87,
         selectedItemColor: purplePrimary,
         items: [
@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         onPressed: () {
-          if (pageIndex == 0) {
+          if (provider.pageIndex == 0) {
             showAddNoteDialog(context);
           } else {
             showAddPasswordDialog(context);
@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
           Icons.add,
         ),
       ),
-      body: page[pageIndex],
+      body: page[provider.pageIndex],
     );
   }
 }

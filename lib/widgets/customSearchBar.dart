@@ -35,6 +35,7 @@ class CustomSearchBar extends StatelessWidget {
               child: TextField(
                 controller: controller,
                 cursorColor: purplePrimary,
+                onChanged: (value) {},
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
