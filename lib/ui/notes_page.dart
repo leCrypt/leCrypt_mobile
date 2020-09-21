@@ -29,16 +29,11 @@ class _NotesPageState extends State<NotesPage> {
         shrinkWrap: true,
         itemCount: provider.noteList.length,
         itemBuilder: (context, index) {
-          return Dismissible(
+          return NoteItem(
             key: Key(provider.noteList[index].title),
-            onDismissed: (direction) async {
-              await NoteStorage().DeletNote(index, context);
-            },
-            child: NoteItem(
-              index: index,
-              note: provider.noteList[index].note,
-              title: provider.noteList[index].title,
-            ),
+            index: index,
+            note: provider.noteList[index].note,
+            title: provider.noteList[index].title,
           );
         },
       );

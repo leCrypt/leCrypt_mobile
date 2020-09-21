@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:leCrypt_mobile/storage/notes_storage.dart';
 
 class NoteItem extends StatefulWidget {
@@ -9,10 +10,11 @@ class NoteItem extends StatefulWidget {
   final int index;
 
   NoteItem({
+    Key key,
     this.title,
     this.note,
     this.index,
-  });
+  }) : super(key: key);
 
   @override
   _NoteItemState createState() => _NoteItemState();
@@ -35,81 +37,93 @@ class _NoteItemState extends State<NoteItem> {
     var size = MediaQuery.of(context).size;
     return Padding(
       padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
-      child: Container(
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(
-            color: Colors.black,
-            width: 4,
+      child: Slidable(
+        actionPane: SlidableDrawerActionPane(),
+        actions: [
+          IconSlideAction(
+            color: Colors.white,
+            icon: Icons.delete,
+            onTap: () async {
+              await NoteStorage().DeletNote(widget.index, context);
+            },
           ),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: size.width * 0.77,
-                  child: TextField(
-                    controller: titleController,
-                    enabled: _enabled,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: Colors.black,
-                          width: 2,
+        ],
+        child: Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(
+              color: Colors.black,
+              width: 4,
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: size.width * 0.77,
+                    child: TextField(
+                      controller: titleController,
+                      enabled: _enabled,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                            width: 2,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                IconButton(
-                  icon: Icon(_enabled ? Icons.check : Icons.edit),
-                  onPressed: () async {
-                    setState(() {
-                      _enabled = !_enabled;
-                    });
-                    if (!_enabled) {
-                      await NoteStorage().saveNote(
-                        titleController.text,
-                        noteController.text,
-                        widget.index,
-                        context,
-                      );
-                    }
-                  },
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            TextField(
-              controller: noteController,
-              enabled: _enabled,
-              minLines: 1,
-              maxLines: 7,
-              keyboardType: TextInputType.multiline,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(
-                    color: Colors.black,
-                    width: 2,
+                  IconButton(
+                    icon: Icon(_enabled ? Icons.check : Icons.edit),
+                    onPressed: () async {
+                      setState(() {
+                        _enabled = !_enabled;
+                      });
+                      if (!_enabled) {
+                        await NoteStorage().saveNote(
+                          titleController.text,
+                          noteController.text,
+                          widget.index,
+                          context,
+                        );
+                      }
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              TextField(
+                controller: noteController,
+                enabled: _enabled,
+                minLines: 1,
+                maxLines: 7,
+                keyboardType: TextInputType.multiline,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                      color: Colors.black,
+                      width: 2,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
