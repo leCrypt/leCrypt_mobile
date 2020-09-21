@@ -32,24 +32,24 @@ class NoteStorage {
   Future<void> DeletNote(int index, BuildContext context) async {
     var notes = await getNotes();
     notes.removeAt(index);
-    await writeNote(notes);
-    Provider.of<AppProvider>(context, listen: false).deleteNote(index);
+    await writeNote(notes, context);
   }
 
-  Future<void> writeNote(List<Note> notes) async {
+  Future<void> writeNote(List<Note> notes, BuildContext context) async {
     var file = await getNotesFile();
     await file.writeAsString(
       notesToJson(
         Notes(notes: notes),
       ),
     );
+    Provider.of<AppProvider>(context, listen: false).setNoteList(notes);
   }
 
   Future<void> saveNote(
       String title, String note, int index, BuildContext context) async {
     var notes = await getNotes();
     notes[index] = Note(title: title, note: note);
-    await writeNote(notes);
+    await writeNote(notes, context);
   }
 
   Future<void> addNote(String title, String note, BuildContext context) async {
@@ -60,12 +60,6 @@ class NoteStorage {
         title: (title),
       ),
     );
-    await writeNote(notes);
-    Provider.of<AppProvider>(context, listen: false).addNote(
-      Note(
-        note: note,
-        title: title,
-      ),
-    );
+    await writeNote(notes, context);
   }
 }
