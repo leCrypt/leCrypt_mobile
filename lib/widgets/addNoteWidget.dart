@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leCrypt_mobile/models/notes.dart';
 import 'package:leCrypt_mobile/storage/notes_storage.dart';
 import 'package:leCrypt_mobile/widgets/customTextField.dart';
 
@@ -33,12 +34,13 @@ void showAddNoteDialog(BuildContext context) {
             offset: 4,
             onTap: () {
               NoteStorage().addNote(
-                titleController.text,
-                noteController.text,
+                Note(
+                  note: noteController.text,
+                  title: titleController.text,
+                ),
                 context,
-              ).then((value) {
-                Navigator.pop(context);
-              });
+              );
+              Navigator.pop(context);
             },
           ),
         ],

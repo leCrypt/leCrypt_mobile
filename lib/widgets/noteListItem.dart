@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:leCrypt_mobile/models/notes.dart';
 import 'package:leCrypt_mobile/storage/notes_storage.dart';
 
 class NoteItem extends StatefulWidget {
@@ -92,8 +93,10 @@ class _NoteItemState extends State<NoteItem> {
                       });
                       if (!_enabled) {
                         await NoteStorage().saveNote(
-                          titleController.text,
-                          noteController.text,
+                          Note(
+                            note: noteController.text,
+                            title: titleController.text,
+                          ),
                           widget.index,
                           context,
                         );

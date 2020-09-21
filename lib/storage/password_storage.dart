@@ -1,7 +1,10 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:leCrypt_mobile/models/password.dart';
+import 'package:leCrypt_mobile/provider/app_provider.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 
 class PasswordStorage {
   Future<File> getPasswordsFile() async {
@@ -26,31 +29,26 @@ class PasswordStorage {
     return _passes.passes;
   }
 
-  Future<void> DeletPassword(int index) async {
+  Future<void> DeletPassword(int index, BuildContext context) async {
     var passes = await getPasswords();
     passes.removeAt(index);
-    await writePassword(passes);
+    await writePassword(passes, context);
   }
 
-  Future<void> writePassword(List<Pass> passes) async {
+  Future<void> writePassword(List<Pass> passes, BuildContext context) async {
     var file = await getPasswordsFile();
     await file.writeAsString(
       passwordsToJson(
         Passwords(passes: passes),
       ),
     );
+    Provider.of<AppProvider>(context, listen: false).setPasswordList(passes);
   }
 
-  Future<void> addPassword(String website, String username, String password) async {
+  Future<void> addPassword(Pass pass, BuildContext context) async {
     var notes = await getPasswords();
-    notes.add(
-      Pass(
-        website: (website),
-        username: (username),
-        password: (password),
-      ),
-    );
+    notes.add(pass);
     print(notes);
-    await writePassword(notes);
+    await writePassword(notes, context);
   }
 }

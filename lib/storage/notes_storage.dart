@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:leCrypt_mobile/models/notes.dart';
 import 'package:leCrypt_mobile/provider/app_provider.dart';
 import 'package:path_provider/path_provider.dart';
@@ -45,21 +45,15 @@ class NoteStorage {
     Provider.of<AppProvider>(context, listen: false).setNoteList(notes);
   }
 
-  Future<void> saveNote(
-      String title, String note, int index, BuildContext context) async {
+  Future<void> saveNote(Note note, int index, BuildContext context) async {
     var notes = await getNotes();
-    notes[index] = Note(title: title, note: note);
+    notes[index] = note;
     await writeNote(notes, context);
   }
 
-  Future<void> addNote(String title, String note, BuildContext context) async {
+  Future<void> addNote(Note note, BuildContext context) async {
     var notes = await getNotes();
-    notes.add(
-      Note(
-        note: (note),
-        title: (title),
-      ),
-    );
+    notes.add(note);
     await writeNote(notes, context);
   }
 }

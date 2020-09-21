@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:leCrypt_mobile/provider/app_provider.dart';
 import 'package:leCrypt_mobile/storage/notes_storage.dart';
+import 'package:leCrypt_mobile/values/values.dart';
 import 'package:leCrypt_mobile/widgets/noteListItem.dart';
 import 'package:provider/provider.dart';
 
@@ -39,7 +40,9 @@ class _NotesPageState extends State<NotesPage> {
       );
     } else {
       return Center(
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(
+          backgroundColor: purplePrimary,
+        ),
       );
     }
   }
