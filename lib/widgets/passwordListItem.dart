@@ -1,37 +1,38 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:leCrypt_mobile/models/notes.dart';
-import 'package:leCrypt_mobile/storage/notes_storage.dart';
+import 'package:leCrypt_mobile/models/password.dart';
+import 'package:leCrypt_mobile/storage/password_storage.dart';
 import 'package:leCrypt_mobile/values/values.dart';
 
-class NoteItem extends StatefulWidget {
-  final String title;
-  final String note;
+class PasswordItem extends StatefulWidget {
+  final String website;
+  final String username;
+  final String password;
   final int index;
-
-  NoteItem({
+  PasswordItem({
     Key key,
-    this.title,
-    this.note,
     this.index,
+    this.website,
+    this.username,
+    this.password,
   }) : super(key: key);
-
   @override
-  _NoteItemState createState() => _NoteItemState();
+  _PasswordItemState createState() => _PasswordItemState();
 }
 
-class _NoteItemState extends State<NoteItem> {
-  var titleController;
-  var noteController;
+class _PasswordItemState extends State<PasswordItem> {
+  var websiteController;
+  var userNameController;
+  var passwordController;
   var _enabled = false;
+  var _showPassword = false;
 
   @override
   void initState() {
+    websiteController = TextEditingController(text: widget.website);
+    userNameController = TextEditingController(text: widget.username);
+    passwordController = TextEditingController(text: widget.password);
     super.initState();
-    titleController = TextEditingController(text: widget.title);
-    noteController = TextEditingController(text: widget.note);
   }
 
   @override
@@ -46,7 +47,7 @@ class _NoteItemState extends State<NoteItem> {
             color: Colors.white,
             icon: Icons.delete,
             onTap: () async {
-              await NoteStorage().DeletNote(widget.index, context);
+              await PasswordStorage().DeletPassword(widget.index, context);
             },
           ),
         ],
@@ -66,9 +67,9 @@ class _NoteItemState extends State<NoteItem> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    width: size.width * 0.77,
+                    width: size.width * 0.75,
                     child: TextField(
-                      controller: titleController,
+                      controller: websiteController,
                       enabled: _enabled,
                       style: TextStyle(
                         fontSize: 20,
@@ -87,10 +88,11 @@ class _NoteItemState extends State<NoteItem> {
                         _enabled = !_enabled;
                       });
                       if (!_enabled) {
-                        await NoteStorage().saveNote(
-                          Note(
-                            note: noteController.text,
-                            title: titleController.text,
+                        await PasswordStorage().savePassword(
+                          Pass(
+                            website: websiteController.text,
+                            username: userNameController.text,
+                            password: passwordController.text,
                           ),
                           widget.index,
                           context,
@@ -104,12 +106,31 @@ class _NoteItemState extends State<NoteItem> {
                 height: 10,
               ),
               TextField(
-                controller: noteController,
+                controller: userNameController,
                 enabled: _enabled,
-                minLines: 1,
-                maxLines: 7,
-                keyboardType: TextInputType.multiline,
                 decoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  border: outlineInputBorder,
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              TextField(
+                controller: passwordController,
+                enabled: _enabled,
+                obscureText: _showPassword,
+                decoration: InputDecoration(
+                  suffix: IconButton(
+                    icon: Icon(
+                      _showPassword ? Icons.toggle_on : Icons.toggle_off,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _showPassword = !_showPassword;
+                      });
+                    },
+                  ),
                   contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                   border: outlineInputBorder,
                 ),

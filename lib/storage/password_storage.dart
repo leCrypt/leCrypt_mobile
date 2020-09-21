@@ -45,6 +45,12 @@ class PasswordStorage {
     Provider.of<AppProvider>(context, listen: false).setPasswordList(passes);
   }
 
+  Future<void> savePassword(Pass pass, int index, BuildContext context) async {
+    var passes = await getPasswords();
+    passes[index] = pass;
+    await writePassword(passes, context);
+  }
+
   Future<void> addPassword(Pass pass, BuildContext context) async {
     var notes = await getPasswords();
     notes.add(pass);

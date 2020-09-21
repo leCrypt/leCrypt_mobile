@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:leCrypt_mobile/provider/app_provider.dart';
 import 'package:leCrypt_mobile/storage/password_storage.dart';
-import 'package:leCrypt_mobile/widgets/customSearchBar.dart';
+import 'package:leCrypt_mobile/values/values.dart';
+import 'package:leCrypt_mobile/widgets/passwordListItem.dart';
+import 'package:provider/provider.dart';
 
 class PasswordPage extends StatefulWidget {
   @override
@@ -9,40 +12,39 @@ class PasswordPage extends StatefulWidget {
 
 class _PasswordPageState extends State<PasswordPage> {
   @override
+  void didChangeDependencies() {
+    setList(context);
+    super.didChangeDependencies();
+  }
+
+  void setList(BuildContext context) async {
+    final provider = Provider.of<AppProvider>(context);
+    provider.setPasswordList(await PasswordStorage().getPasswords());
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          CustomSearchBar(
-            hint: 'Search',
-            onTap: () {},
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          StreamBuilder(
-            stream: PasswordStorage().getPasswords().asStream(),
-            builder: (context, snapshot) {
-              if (snapshot.data != null && snapshot.data.length > 0) {
-                return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(snapshot.data[index].website),
-                      subtitle: Text(snapshot.data[index].username),
-                    );
-                  },
-                );
-              } else {
-                return Center(
-                  child: Text('No note found!'),
-                );
-              }
-            },
-          ),
-        ],
-      ),
-    );
+    final provider = Provider.of<AppProvider>(context);
+    if (provider.passwordList != null) {
+      return ListView.builder(
+        shrinkWrap: true,
+        itemCount: provider.passwordList.length,
+        itemBuilder: (context, index) {
+          return PasswordItem(
+            key: Key(provider.passwordList[index].website),
+            index: index,
+            website: provider.passwordList[index].website,
+            username: provider.passwordList[index].username,
+            password: provider.passwordList[index].password,
+          );
+        },
+      );
+    } else {
+      return Center(
+        child: CircularProgressIndicator(
+          backgroundColor: purplePrimary,
+        ),
+      );
+    }
   }
 }
