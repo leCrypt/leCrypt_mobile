@@ -19,6 +19,7 @@ class SearchList {
   void searchPassList(String value, BuildContext context) {
     final provider = Provider.of<AppProvider>(context, listen: false);
     provider.setSearchPassList([]);
+    provider.setIsSearchingList(true);
     for (var pass in provider.passwordList) {
       if (pass.website.toLowerCase().contains(value.toLowerCase())) {
         provider.addToSearchPassList(pass);

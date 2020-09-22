@@ -26,16 +26,19 @@ class _PasswordPageState extends State<PasswordPage> {
   Widget build(BuildContext context) {
     final provider = Provider.of<AppProvider>(context);
     if (provider.passwordList != null) {
+      final list = provider.isSearchingList
+          ? provider.searchPassList
+          : provider.passwordList;
       return ListView.builder(
         shrinkWrap: true,
-        itemCount: provider.passwordList.length,
+        itemCount: list.length,
         itemBuilder: (context, index) {
           return PasswordItem(
-            key: Key(provider.passwordList[index].website),
+            key: Key(list[index].website),
             index: index,
-            website: provider.passwordList[index].website,
-            username: provider.passwordList[index].username,
-            password: provider.passwordList[index].password,
+            website: list[index].website,
+            username: list[index].username,
+            password: list[index].password,
           );
         },
       );
