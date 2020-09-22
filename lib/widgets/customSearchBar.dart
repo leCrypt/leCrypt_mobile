@@ -47,6 +47,12 @@ class CustomSearchBar extends StatelessWidget {
                   focusedErrorBorder: outlineInputBorder,
                   border: outlineInputBorder,
                   disabledBorder: outlineInputBorder,
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.clear),
+                    onPressed: () {
+                      controller.clear();
+                    },
+                  ),
                 ),
               ),
             ),

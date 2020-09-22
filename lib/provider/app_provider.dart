@@ -6,6 +6,8 @@ class AppProvider with ChangeNotifier {
   int _pageIndex = 0;
   List<Note> _notesList;
   List<Pass> _passwordList;
+  List<Note> _searchNoteList;
+  List<Pass> _searchPassList;
 
   int get pageIndex => _pageIndex;
 
@@ -25,6 +27,30 @@ class AppProvider with ChangeNotifier {
 
   void setPasswordList(List<Pass> passes) {
     _passwordList = passes;
+    notifyListeners();
+  }
+
+  List<Note> get searchNoteList => _searchNoteList;
+
+  void setSearchNoteList(List<Note> searchList) {
+    _searchNoteList = searchList;
+    notifyListeners();
+  }
+
+  void addToSearchNoteList(Note note) {
+    _searchNoteList.add(note);
+    notifyListeners();
+  }
+
+  List<Pass> get searchPassList => _searchPassList;
+
+  void setSearchPassList(List<Pass> searchList) {
+    _searchPassList = searchList;
+    notifyListeners();
+  }
+
+  void addToSearchPassList(Pass pass) {
+    _searchPassList.add(pass);
     notifyListeners();
   }
 }

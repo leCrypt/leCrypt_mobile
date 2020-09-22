@@ -16,6 +16,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var page = [NotesPage(), PasswordPage()];
+  var noteSearchController;
+  var passSearchController;
+
+  @override
+  void initState() {
+    noteSearchController = TextEditingController();
+    passSearchController = TextEditingController();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +39,9 @@ class _HomePageState extends State<HomePage> {
             title: 'leCrypt',
             bottom: CustomSearchBar(
               hint: 'Search',
+              controller: provider.pageIndex == 0
+                  ? noteSearchController
+                  : passSearchController,
               onTap: () {},
             ),
           ),
