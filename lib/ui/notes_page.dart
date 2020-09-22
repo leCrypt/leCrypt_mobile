@@ -26,15 +26,18 @@ class _NotesPageState extends State<NotesPage> {
   Widget build(BuildContext context) {
     final provider = Provider.of<AppProvider>(context);
     if (provider.noteList != null) {
+      final list = provider.isSearchingList
+          ? provider.searchNoteList
+          : provider.noteList;
       return ListView.builder(
         shrinkWrap: true,
-        itemCount: provider.noteList.length,
+        itemCount: list.length,
         itemBuilder: (context, index) {
           return NoteItem(
-            key: Key(provider.noteList[index].title),
+            key: Key(list[index].title),
             index: index,
-            note: provider.noteList[index].note,
-            title: provider.noteList[index].title,
+            note: list[index].note,
+            title: list[index].title,
           );
         },
       );

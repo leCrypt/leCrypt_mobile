@@ -16,15 +16,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var page = [NotesPage(), PasswordPage()];
-  var noteSearchController;
-  var passSearchController;
-
-  @override
-  void initState() {
-    noteSearchController = TextEditingController();
-    passSearchController = TextEditingController();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,13 +28,7 @@ class _HomePageState extends State<HomePage> {
         child: Center(
           child: CustomAppBar(
             title: 'leCrypt',
-            bottom: CustomSearchBar(
-              hint: 'Search',
-              controller: provider.pageIndex == 0
-                  ? noteSearchController
-                  : passSearchController,
-              onTap: () {},
-            ),
+            bottom: CustomSearchBar(),
           ),
         ),
       ),
@@ -54,6 +39,9 @@ class _HomePageState extends State<HomePage> {
         selectedItemColor: purplePrimary,
         onTap: (index) {
           provider.setPageIndex(1 - provider.pageIndex);
+          provider.setSearchNoteList([]);
+          provider.setSearchPassList([]);
+          provider.setIsSearchingList(false);
         },
         items: [
           BottomNavigationBarItem(

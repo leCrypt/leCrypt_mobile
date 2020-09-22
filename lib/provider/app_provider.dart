@@ -4,6 +4,7 @@ import 'package:leCrypt_mobile/models/password.dart';
 
 class AppProvider with ChangeNotifier {
   int _pageIndex = 0;
+  bool _isSearchingList = false;
   List<Note> _notesList;
   List<Pass> _passwordList;
   List<Note> _searchNoteList;
@@ -13,6 +14,13 @@ class AppProvider with ChangeNotifier {
 
   void setPageIndex(int index) {
     _pageIndex = index;
+    notifyListeners();
+  }
+
+  bool get isSearchingList => _isSearchingList;
+
+  void setIsSearchingList(bool value) {
+    _isSearchingList = value;
     notifyListeners();
   }
 

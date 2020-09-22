@@ -5,8 +5,10 @@ import 'package:provider/provider.dart';
 
 class SearchList {
   void searchNoteList(String value, BuildContext context) {
-    final provider = Provider.of<AppProvider>(context);
+    print(value);
+    final provider = Provider.of<AppProvider>(context, listen: false);
     provider.setSearchNoteList([]);
+    provider.setIsSearchingList(true);
     for (var note in provider.noteList) {
       if (note.title.toLowerCase().contains(value.toLowerCase())) {
         provider.addToSearchNoteList(note);
@@ -15,7 +17,7 @@ class SearchList {
   }
 
   void searchPassList(String value, BuildContext context) {
-    final provider = Provider.of<AppProvider>(context);
+    final provider = Provider.of<AppProvider>(context, listen: false);
     provider.setSearchPassList([]);
     for (var pass in provider.passwordList) {
       if (pass.website.toLowerCase().contains(value.toLowerCase())) {

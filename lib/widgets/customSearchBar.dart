@@ -1,20 +1,23 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:leCrypt_mobile/provider/app_provider.dart';
+import 'package:leCrypt_mobile/storage/search.dart';
 import 'package:leCrypt_mobile/values/values.dart';
+import 'package:provider/provider.dart';
 
-class CustomSearchBar extends StatelessWidget {
-  final TextEditingController controller;
-  final VoidCallback onTap;
-  final String hint;
+class CustomSearchBar extends StatefulWidget {
+  @override
+  _CustomSearchBarState createState() => _CustomSearchBarState();
+}
 
-  CustomSearchBar({
-    this.controller,
-    this.onTap,
-    this.hint,
-  });
+class _CustomSearchBarState extends State<CustomSearchBar> {
+  var inputController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    final provider = Provider.of<AppProvider>(context, listen: false);
     return Padding(
       padding: EdgeInsets.fromLTRB(size.width * 0.025, 0, size.width * 0.04, 0),
       child: Container(
@@ -33,13 +36,17 @@ class CustomSearchBar extends StatelessWidget {
             Container(
               width: size.width * 0.785,
               child: TextField(
-                controller: controller,
+                controller: inputController,
                 cursorColor: purplePrimary,
-                onChanged: (value) {},
+                onChanged: (value) {
+                  if (value.isEmpty) {
+                    provider.setIsSearchingList(false);
+                  }
+                },
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
-                  hintText: hint,
+                  hintText: 'Search',
                   contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
                   focusedBorder: outlineInputBorder,
                   enabledBorder: outlineInputBorder,
@@ -50,7 +57,8 @@ class CustomSearchBar extends StatelessWidget {
                   suffixIcon: IconButton(
                     icon: Icon(Icons.clear),
                     onPressed: () {
-                      controller.clear();
+                      inputController.clear();
+                      provider.setIsSearchingList(false);
                     },
                   ),
                 ),
@@ -64,7 +72,19 @@ class CustomSearchBar extends StatelessWidget {
                   Icons.search,
                   color: Colors.white,
                 ),
-                onPressed: onTap,
+                onPressed: () {
+                  if (provider.pageIndex == 0) {
+                    SearchList().searchNoteList(
+                      inputController.text,
+                      context,
+                    );
+                  } else {
+                    SearchList().searchPassList(
+                      inputController.text,
+                      context,
+                    );
+                  }
+                },
               ),
             ),
           ],
