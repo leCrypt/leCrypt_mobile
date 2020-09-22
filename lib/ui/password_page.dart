@@ -29,19 +29,25 @@ class _PasswordPageState extends State<PasswordPage> {
       final list = provider.isSearchingList
           ? provider.searchPassList
           : provider.passwordList;
-      return ListView.builder(
-        shrinkWrap: true,
-        itemCount: list.length,
-        itemBuilder: (context, index) {
-          return PasswordItem(
-            key: Key(list[index].website),
-            index: index,
-            website: list[index].website,
-            username: list[index].username,
-            password: list[index].password,
-          );
-        },
-      );
+      if (list.isNotEmpty){
+        return ListView.builder(
+          shrinkWrap: true,
+          itemCount: list.length,
+          itemBuilder: (context, index) {
+            return PasswordItem(
+              key: Key(list[index].website),
+              index: index,
+              website: list[index].website,
+              username: list[index].username,
+              password: list[index].password,
+            );
+          },
+        );
+      }else{
+        return Center(
+          child: Text('Nothing found!'),
+        );
+      }
     } else {
       return Center(
         child: CircularProgressIndicator(

@@ -29,18 +29,24 @@ class _NotesPageState extends State<NotesPage> {
       final list = provider.isSearchingList
           ? provider.searchNoteList
           : provider.noteList;
-      return ListView.builder(
-        shrinkWrap: true,
-        itemCount: list.length,
-        itemBuilder: (context, index) {
-          return NoteItem(
-            key: Key(list[index].title),
-            index: index,
-            note: list[index].note,
-            title: list[index].title,
-          );
-        },
-      );
+      if (list.isNotEmpty) {
+        return ListView.builder(
+          shrinkWrap: true,
+          itemCount: list.length,
+          itemBuilder: (context, index) {
+            return NoteItem(
+              key: Key(list[index].title),
+              index: index,
+              note: list[index].note,
+              title: list[index].title,
+            );
+          },
+        );
+      } else {
+        return Center(
+          child: Text('Nothing found!'),
+        );
+      }
     } else {
       return Center(
         child: CircularProgressIndicator(

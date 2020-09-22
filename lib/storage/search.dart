@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 class SearchList {
   void searchNoteList(String value, BuildContext context) {
-    print(value);
     final provider = Provider.of<AppProvider>(context, listen: false);
     provider.setSearchNoteList([]);
     provider.setIsSearchingList(true);
