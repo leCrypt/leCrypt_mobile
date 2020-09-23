@@ -37,20 +37,28 @@ class _PasswordItemState extends State<PasswordItem> {
     super.initState();
   }
 
-  void changeEnability() async {
+  void changeEnability(BuildContext context) async {
     setState(() {
       _enabled = !_enabled;
     });
     if (!_enabled) {
-      await PasswordStorage().savePassword(
-        Pass(
-          website: websiteController.text.trim(),
-          username: userNameController.text.trim(),
-          password: passwordController.text,
-        ),
-        widget.index,
-        context,
-      );
+      if (Check().isValidWebsiteUrl(websiteController.text)) {
+        await PasswordStorage().savePassword(
+          Pass(
+            website: websiteController.text.trim(),
+            username: userNameController.text.trim(),
+            password: passwordController.text,
+          ),
+          widget.index,
+          context,
+        );
+      } else {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Invalid Website'),
+          ),
+        );
+      }
     }
   }
 
@@ -93,9 +101,7 @@ class _PasswordItemState extends State<PasswordItem> {
                   IconButton(
                     icon: Icon(_enabled ? Icons.check : Icons.edit),
                     onPressed: () async {
-                      if (Check().isValidWebsite(websiteController.text)) {
-                        await changeEnability();
-                      }
+                      await changeEnability(context);
                     },
                   ),
                 ],

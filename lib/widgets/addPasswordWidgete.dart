@@ -35,7 +35,7 @@ void showAddPasswordDialog(BuildContext context) {
             fontSize: 16,
             offset: 4,
             onTap: () {
-              if (Check().isValidWebsite(websiteContoller.text)) {
+              if (Check().isValidWebsiteUrl(websiteContoller.text)) {
                 PasswordStorage().addPassword(
                   Pass(
                     username: userNameController.text.trim(),
@@ -45,6 +45,12 @@ void showAddPasswordDialog(BuildContext context) {
                   context,
                 );
                 Navigator.pop(context);
+              } else {
+                Scaffold.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Invalid Website'),
+                  ),
+                );
               }
             },
           ),
