@@ -13,6 +13,7 @@ String convertStringToHash(String value) {
 }
 
 String encryptToAES(String value) {
+  
   final key = Key.fromBase64('t6DGmN2z7+z9Snwu9cnf8rYHfntXV3kqiQ9F0bee8D4=');
   final encrypter = Encrypter(AES(key));
   final encrypted = encrypter.encrypt(
@@ -25,7 +26,12 @@ String encryptToAES(String value) {
 
 String decryptFromAES(String value) {
   final key = Key.fromBase64('t6DGmN2z7+z9Snwu9cnf8rYHfntXV3kqiQ9F0bee8D4=');
-  final encrypter = Encrypter(AES(key, mode: AESMode.cbc));
+  final encrypter = Encrypter(
+    AES(
+      key,
+      mode: AESMode.cbc,
+    ),
+  );
   final decrypted = encrypter.decrypt64(
     value,
     iv: IV.fromBase64('VBVeAgeA5WIo5zj2gxKpWA=='),

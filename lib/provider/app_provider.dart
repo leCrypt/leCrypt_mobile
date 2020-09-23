@@ -4,11 +4,14 @@ import 'package:leCrypt_mobile/models/password.dart';
 
 class AppProvider with ChangeNotifier {
   int _pageIndex = 0;
+  final String _key = 'yash1200';
   bool _isSearchingList = false;
   List<Note> _notesList;
   List<Pass> _passwordList;
   List<Note> _searchNoteList;
   List<Pass> _searchPassList;
+
+  String get key => _key;
 
   int get pageIndex => _pageIndex;
 
