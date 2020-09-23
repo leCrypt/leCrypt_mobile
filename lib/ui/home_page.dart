@@ -38,10 +38,12 @@ class _HomePageState extends State<HomePage> {
         unselectedItemColor: Colors.black87,
         selectedItemColor: purplePrimary,
         onTap: (index) {
-          provider.setPageIndex(1 - provider.pageIndex);
-          provider.setSearchNoteList([]);
-          provider.setSearchPassList([]);
-          provider.setIsSearchingList(false);
+          if (index != provider.pageIndex) {
+            provider.setPageIndex(1 - provider.pageIndex);
+            provider.setSearchNoteList([]);
+            provider.setSearchPassList([]);
+            provider.setIsSearchingList(false);
+          }
         },
         items: [
           BottomNavigationBarItem(
