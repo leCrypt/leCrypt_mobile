@@ -35,8 +35,8 @@ void showAddNoteDialog(BuildContext context) {
             onTap: () {
               NoteStorage().addNote(
                 Note(
-                  note: noteController.text,
-                  title: titleController.text,
+                  note: noteController.text.trim(),
+                  title: titleController.text.trim(),
                 ),
                 context,
               );

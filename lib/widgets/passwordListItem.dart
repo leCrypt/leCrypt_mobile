@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:leCrypt_mobile/models/password.dart';
+import 'package:leCrypt_mobile/storage/check.dart';
 import 'package:leCrypt_mobile/storage/password_storage.dart';
 import 'package:leCrypt_mobile/values/values.dart';
 
@@ -43,8 +44,8 @@ class _PasswordItemState extends State<PasswordItem> {
     if (!_enabled) {
       await PasswordStorage().savePassword(
         Pass(
-          website: websiteController.text,
-          username: userNameController.text,
+          website: websiteController.text.trim(),
+          username: userNameController.text.trim(),
           password: passwordController.text,
         ),
         widget.index,
@@ -92,7 +93,9 @@ class _PasswordItemState extends State<PasswordItem> {
                   IconButton(
                     icon: Icon(_enabled ? Icons.check : Icons.edit),
                     onPressed: () async {
-                      await changeEnability();
+                      if (Check().isValidWebsite(websiteController.text)) {
+                        await changeEnability();
+                      }
                     },
                   ),
                 ],
@@ -125,7 +128,9 @@ class _PasswordItemState extends State<PasswordItem> {
                           alignment: Alignment.centerRight,
                           child: IconButton(
                             icon: Icon(
-                              _showPassword ? Icons.toggle_on : Icons.toggle_off,
+                              _showPassword
+                                  ? Icons.toggle_on
+                                  : Icons.toggle_off,
                             ),
                             onPressed: () {
                               setState(() {

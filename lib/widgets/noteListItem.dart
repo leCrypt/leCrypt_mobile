@@ -41,8 +41,8 @@ class _NoteItemState extends State<NoteItem> {
     if (!_enabled) {
       await NoteStorage().saveNote(
         Note(
-          note: noteController.text,
-          title: titleController.text,
+          note: noteController.text.trim(),
+          title: titleController.text.trim(),
         ),
         widget.index,
         context,

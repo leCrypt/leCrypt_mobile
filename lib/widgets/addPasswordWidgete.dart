@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:leCrypt_mobile/models/password.dart';
+import 'package:leCrypt_mobile/storage/check.dart';
 import 'package:leCrypt_mobile/storage/password_storage.dart';
 import 'package:leCrypt_mobile/widgets/customTextField.dart';
 
@@ -34,15 +35,17 @@ void showAddPasswordDialog(BuildContext context) {
             fontSize: 16,
             offset: 4,
             onTap: () {
-              PasswordStorage().addPassword(
-                Pass(
-                  username: userNameController.text,
-                  website: websiteContoller.text,
-                  password: passwordController.text,
-                ),
-                context,
-              );
-              Navigator.pop(context);
+              if (Check().isValidWebsite(websiteContoller.text)) {
+                PasswordStorage().addPassword(
+                  Pass(
+                    username: userNameController.text.trim(),
+                    website: websiteContoller.text.trim(),
+                    password: passwordController.text,
+                  ),
+                  context,
+                );
+                Navigator.pop(context);
+              }
             },
           ),
         ],
